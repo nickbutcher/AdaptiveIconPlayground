@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright 2017 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="uk.co.nickbutcher.adaptiveiconplayground.MainActivity">
+
+    <View
+        android:id="@+id/spring_dummy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/grid_bottom_padding"
+        android:paddingTop="24dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical|horizontal"
+        app:layoutManager="GridLayoutManager"
+        app:spanCount="@integer/spans" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/settings_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ccffffff"
+        android:clickable="true"
+        android:elevation="4dp"
+        app:behavior_peekHeight="@dimen/sheet_peek"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="@bool/settings_sheet_fits_windows"
+            android:paddingBottom="64dp"
+            android:paddingTop="16dp">
+
+            <ImageButton
+                android:id="@+id/mask"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/round_button"
+                android:src="@drawable/ic_mask"
+                android:tooltipText="Change Mask"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/orientation"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/round_button"
+                android:src="@drawable/ic_horizontal"
+                android:tooltipText="Change Orientation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/background"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_button"
+                android:src="@drawable/ic_wallpaper"
+                android:tooltipText="Change Wallpaper"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/foreground_parallax_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:text="foreground parallax"
+                android:textAppearance="@style/TextAppearance.SubTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mask" />
+
+            <SeekBar
+                android:id="@+id/foreground_parallax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="50"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:progress="20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/foreground_parallax_label" />
+
+            <TextView
+                android:id="@+id/background_parallax_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="background parallax"
+                android:textAppearance="@style/TextAppearance.SubTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/foreground_parallax" />
+
+            <SeekBar
+                android:id="@+id/background_parallax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="50"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:progress="10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/background_parallax_label" />
+
+            <TextView
+                android:id="@+id/foreground_scale_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="foreground scale"
+                android:textAppearance="@style/TextAppearance.SubTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/background_parallax" />
+
+            <SeekBar
+                android:id="@+id/foreground_scale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="50"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:progress="20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/foreground_scale_label" />
+
+            <TextView
+                android:id="@+id/background_scale_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="background scale"
+                android:textAppearance="@style/TextAppearance.SubTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/foreground_scale" />
+
+            <SeekBar
+                android:id="@+id/background_scale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="50"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:progress="30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/background_scale_label" />
+
+            <TextView
+                android:id="@+id/stiffness_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="spring stiffness"
+                android:textAppearance="@style/TextAppearance.SubTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/background_scale" />
+
+            <SeekBar
+                android:id="@+id/stiffness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:max="3000"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:progress="500"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stiffness_label" />
+
+            <TextView
+                android:id="@+id/damping_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="spring damping"
+                android:textAppearance="@style/TextAppearance.SubTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stiffness" />
+
+            <SeekBar
+                android:id="@+id/damping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:progress="30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/damping_label" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
