@@ -67,7 +67,6 @@ public class AdaptiveIconView extends View {
         }
         layerSize = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 108, context.getResources().getDisplayMetrics()));
         layerCenter = layerSize / 2;
-        //iconSize = layerSize * 2 / 3;
         iconSize = (int) (layerSize / (1 + 2 * AdaptiveIconDrawable.getExtraInsetFraction()));
         viewportOffset = (layerSize - iconSize) / 2;
     }
