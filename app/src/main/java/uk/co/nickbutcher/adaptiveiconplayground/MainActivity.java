@@ -26,7 +26,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.animation.DynamicAnimation;
+import android.support.animation.FloatPropertyCompat;
 import android.support.animation.SpringAnimation;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -57,8 +57,6 @@ import android.widget.SeekBar;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.animation.DynamicAnimation.TRANSLATION_X;
-import static android.support.animation.DynamicAnimation.TRANSLATION_Y;
 import static android.view.View.GONE;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
@@ -84,6 +82,32 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Float get(MainActivity activity) {
             return activity.getIconCornerRadius();
+        }
+    };
+
+    private static final FloatPropertyCompat<MainActivity> VELOCITY_X
+            = new FloatPropertyCompat<MainActivity>("velocityX") {
+        @Override
+        public float getValue(MainActivity mainActivity) {
+            return 0f;
+        }
+
+        @Override
+        public void setValue(MainActivity mainActivity, float velocityX) {
+            mainActivity.setVelocityX(velocityX);
+        }
+    };
+
+    private static final FloatPropertyCompat<MainActivity> VELOCITY_Y
+            = new FloatPropertyCompat<MainActivity>("velocityY") {
+        @Override
+        public float getValue(MainActivity mainActivity) {
+            return 0f;
+        }
+
+        @Override
+        public void setValue(MainActivity mainActivity, float velocityY) {
+            mainActivity.setVelocityY(velocityY);
         }
     };
 
@@ -274,33 +298,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void releaseVelocity(final float velocityX, float velocityY) {
-        // Can't create our own DynamicAnimation.SpringProperty so instead animate a hidden dummy
-        // view and use a listener to drive animating our own property. Sneaky.
-        View dummy = findViewById(R.id.spring_dummy);
         if (velocityX != 0) {
-            SpringAnimation settleX = new SpringAnimation(dummy, TRANSLATION_X, 0f);
+            SpringAnimation settleX = new SpringAnimation(this, VELOCITY_X, 0f);
             settleX.getSpring().setStiffness(getStiffness());
             settleX.getSpring().setDampingRatio(getDamping());
             settleX.setStartVelocity(velocityX);
-            settleX.addUpdateListener(new DynamicAnimation.OnAnimationUpdateListener() {
-                @Override
-                public void onAnimationUpdate(DynamicAnimation animation, float value, float velocity) {
-                    setVelocityX(value);
-                }
-            });
             settleX.start();
         }
         if (velocityY != 0) {
-            SpringAnimation settleY = new SpringAnimation(dummy, TRANSLATION_Y, 0f);
+            SpringAnimation settleY = new SpringAnimation(this, VELOCITY_Y, 0f);
             settleY.getSpring().setStiffness(getStiffness());
             settleY.getSpring().setDampingRatio(getDamping());
             settleY.setStartVelocity(velocityY);
-            settleY.addUpdateListener(new DynamicAnimation.OnAnimationUpdateListener() {
-                @Override
-                public void onAnimationUpdate(DynamicAnimation animation, float value, float velocity) {
-                    setVelocityY(value);
-                }
-            });
             settleY.start();
         }
     }
@@ -439,8 +448,16 @@ public class MainActivity extends AppCompatActivity {
             this.iconCornerRadius = iconCornerRadius;
         }
 
+        float getVelocityX() {
+            return velocityX;
+        }
+
         void setVelocityX(float velocityX) {
             this.velocityX = velocityX;
+        }
+
+        float getVelocityY() {
+            return velocityY;
         }
 
         void setVelocityY(float velocityY) {
