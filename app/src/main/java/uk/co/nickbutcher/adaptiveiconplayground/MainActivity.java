@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
-        stiffness = (SeekBar) findViewById(R.id.stiffness);
-        damping = (SeekBar) findViewById(R.id.damping);
+        stiffness = findViewById(R.id.stiffness);
+        damping = findViewById(R.id.damping);
         ((SeekBar) findViewById(R.id.foreground_parallax))
                 .setOnSeekBarChangeListener(new SeekListener() {
                     @Override
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         setBackgroundScaleFactor(progress / 100f);
                     }
                 });
-        grid = (RecyclerView) findViewById(R.id.grid);
+        grid = findViewById(R.id.grid);
         grid.setHasFixedSize(true);
         grid.addItemDecoration(new CenteringDecoration(res.getInteger(R.integer.spans),
                 res.getDimensionPixelSize(R.dimen.icon_size)));
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final ImageView background = (ImageView) findViewById(R.id.background);
+        final ImageView background = findViewById(R.id.background);
         background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setForegroundParallaxFactor(foregroundParallaxFactor);
         for (int i = 0; i < grid.getChildCount(); i++) {
             AdaptiveIconView icon = (AdaptiveIconView) grid.getChildAt(i);
-            icon.setForegroundParallaxFactor(foregroundParallaxFactor);
+            icon.setForegroundTranslateFactor(foregroundParallaxFactor);
         }
     }
 
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setBackgroundParallaxFactor(backgroundParallaxFactor);
         for (int i = 0; i < grid.getChildCount(); i++) {
             AdaptiveIconView icon = (AdaptiveIconView) grid.getChildAt(i);
-            icon.setBackgroundParallaxFactor(backgroundParallaxFactor);
+            icon.setBackgroundTranslateFactor(backgroundParallaxFactor);
         }
     }
 
@@ -396,8 +396,8 @@ public class MainActivity extends AppCompatActivity {
         private static final int MIN_ICON_COUNT = 40;
         private final List<AdaptiveIconDrawable> adaptiveIcons;
         private float iconCornerRadius, velocityX, velocityY;
-        private float foregroundParallaxFactor = 0.2f;
-        private float backgroundParallaxFactor = 0.1f;
+        private float foregroundParallaxFactor = 0.1f;
+        private float backgroundParallaxFactor = 0.08f;
         private float foregroundScaleFactor = 0.2f;
         private float backgroundScaleFactor = 0.3f;
 
@@ -420,8 +420,8 @@ public class MainActivity extends AppCompatActivity {
             icon.setCornerRadius(iconCornerRadius);
             icon.setVelocityX(velocityX);
             icon.setVelocityY(velocityY);
-            icon.setForegroundParallaxFactor(foregroundParallaxFactor);
-            icon.setBackgroundParallaxFactor(backgroundParallaxFactor);
+            icon.setForegroundTranslateFactor(foregroundParallaxFactor);
+            icon.setBackgroundTranslateFactor(backgroundParallaxFactor);
             icon.setForegroundScaleFactor(foregroundScaleFactor);
             icon.setBackgroundScaleFactor(backgroundScaleFactor);
         }

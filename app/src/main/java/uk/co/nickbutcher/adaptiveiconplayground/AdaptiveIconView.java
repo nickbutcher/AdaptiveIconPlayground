@@ -46,8 +46,9 @@ public class AdaptiveIconView extends View {
     private Paint shadowPaint;
     private float left, top, cornerRadius;
     private float foregroundDx, foregroundDy, backgroundDx, backgroundDy;
+    // scale & translate factors [0,1]
     private float scale, backgroundScale, foregroundScale = 0f;
-    private float foregroundParallaxFactor, backgroundParallaxFactor, foregroundScaleFactor, backgroundScaleFactor;
+    private float foregroundTranslateFactor, backgroundTranslateFactor, foregroundScaleFactor, backgroundScaleFactor;
 
     // temp
     private static Matrix matrix = new Matrix();
@@ -66,7 +67,8 @@ public class AdaptiveIconView extends View {
         }
         layerSize = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 108, context.getResources().getDisplayMetrics()));
         layerCenter = layerSize / 2;
-        iconSize = layerSize * 2 / 3;
+        //iconSize = layerSize * 2 / 3;
+        iconSize = (int) (layerSize / (1 + 2 * AdaptiveIconDrawable.getExtraInsetFraction()));
         viewportOffset = (layerSize - iconSize) / 2;
     }
 
@@ -82,32 +84,32 @@ public class AdaptiveIconView extends View {
 
     public void setVelocityX(float velocityX) {
         float displacementX = velocityToDisplacement(velocityX);
-        backgroundDx = backgroundParallaxFactor * displacementX;
-        foregroundDx = foregroundParallaxFactor * displacementX;
+        backgroundDx = backgroundTranslateFactor * displacementX;
+        foregroundDx = foregroundTranslateFactor * displacementX;
         postInvalidateOnAnimation();
     }
 
     public void setVelocityY(float velocityY) {
         float displacementY = velocityToDisplacement(velocityY);
-        backgroundDy = backgroundParallaxFactor * displacementY;
-        foregroundDy = foregroundParallaxFactor * displacementY;
+        backgroundDy = backgroundTranslateFactor * displacementY;
+        foregroundDy = foregroundTranslateFactor * displacementY;
         postInvalidateOnAnimation();
     }
 
-    public void setForegroundParallaxFactor(float foregroundParallaxFactor) {
-        this.foregroundParallaxFactor = foregroundParallaxFactor;
+    public void setForegroundTranslateFactor(@FloatRange(from = 0f, to = 1f) float foregroundTranslateFactor) {
+        this.foregroundTranslateFactor = foregroundTranslateFactor;
     }
 
-    public void setBackgroundParallaxFactor(float backgroundParallaxFactor) {
-        this.backgroundParallaxFactor = backgroundParallaxFactor;
+    public void setBackgroundTranslateFactor(@FloatRange(from = 0f, to = 1f) float backgroundTranslateFactor) {
+        this.backgroundTranslateFactor = backgroundTranslateFactor;
     }
 
-    public void setForegroundScaleFactor(float foregroundScaleFactor) {
+    public void setForegroundScaleFactor(@FloatRange(from = 0f, to = 1f) float foregroundScaleFactor) {
         this.foregroundScaleFactor = foregroundScaleFactor;
         postInvalidateOnAnimation();
     }
 
-    public void setBackgroundScaleFactor(float backgroundScaleFactor) {
+    public void setBackgroundScaleFactor(@FloatRange(from = 0f, to = 1f) float backgroundScaleFactor) {
         this.backgroundScaleFactor = backgroundScaleFactor;
         postInvalidateOnAnimation();
     }

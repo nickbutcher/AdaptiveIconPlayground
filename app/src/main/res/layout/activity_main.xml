@@ -114,11 +114,11 @@
                 android:id="@+id/foreground_parallax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="50"
+                android:max="20"
                 android:paddingBottom="16dp"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
-                android:progress="20"
+                android:progress="10"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/foreground_parallax_label" />
 
@@ -136,11 +136,11 @@
                 android:id="@+id/background_parallax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="50"
+                android:max="20"
                 android:paddingBottom="16dp"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
-                android:progress="10"
+                android:progress="8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/background_parallax_label" />
 
