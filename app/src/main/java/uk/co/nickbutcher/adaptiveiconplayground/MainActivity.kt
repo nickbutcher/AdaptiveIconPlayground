@@ -266,7 +266,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Helper function for setting a property on both the adapter and on all views in the grid
      */
-    private fun applyGridProperty(
+    private inline fun applyGridProperty(
             adapterAction: (IconAdapter) -> Unit,
             iconViewAction: (AdaptiveIconView) -> Unit) {
         adapter?.let {
