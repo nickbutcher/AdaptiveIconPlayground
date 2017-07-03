@@ -43,6 +43,3 @@ dependencies {
     implementation "com.android.support:support-dynamic-animation:${supportLibVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
 }
-repositories {
-    mavenCentral()
-}
