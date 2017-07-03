@@ -304,10 +304,11 @@ class MainActivity : AppCompatActivity() {
                 if (pm.queryIntentActivities(launcherIntent, 0).size > 0) {
                     val icon = appInfo.loadUnbadgedIcon(pm)
                     if (icon is AdaptiveIconDrawable) {
-                        adaptiveIcons.add(icon)
+                        adaptiveIcons += icon
                     }
                 }
             }
+            adaptiveIcons += context.getDrawable(R.drawable.ic_launcher_alt) as AdaptiveIconDrawable
             return adaptiveIcons
         }
 

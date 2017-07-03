@@ -13,11 +13,8 @@
   the License.
   -->
 
-<shape
+<inset
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <gradient
-        android:angle="270"
-        android:startColor="#B2FEFA"
-        android:endColor="#0ED2F7" />
-</shape>
+    android:drawable="@drawable/ic_launcher_alt_foreground_trimmed"
+    android:insetLeft="23.1481481481481%"
+    android:insetTop="25%" />
