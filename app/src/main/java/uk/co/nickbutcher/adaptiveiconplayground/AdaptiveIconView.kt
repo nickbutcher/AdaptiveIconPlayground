@@ -15,7 +15,12 @@
 package uk.co.nickbutcher.adaptiveiconplayground
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.Shader.TileMode.CLAMP
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
@@ -52,30 +57,23 @@ class AdaptiveIconView(
     private var foregroundScale by InvalidateDelegate(0f)
 
     var cornerRadius by InvalidateDelegate(0f)
-
     // scale & translate factors [0,1]
     var foregroundTranslateFactor by FloatRangeDelegate(0f)
-
     var backgroundTranslateFactor by FloatRangeDelegate(0f)
-
     var foregroundScaleFactor by FloatRangeDelegate(0f)
-
     var backgroundScaleFactor by FloatRangeDelegate(0f)
-
     var velocityX = 0f
         set(value) {
             val displacementX = velocityToDisplacement(value)
             backgroundDx = backgroundTranslateFactor * displacementX
             foregroundDx = foregroundTranslateFactor * displacementX
         }
-
     var velocityY = 0f
         set(value) {
             val displacementY = velocityToDisplacement(value)
             backgroundDy = backgroundTranslateFactor * displacementY
             foregroundDy = foregroundTranslateFactor * displacementY
         }
-
     @Keep // called by @animator/scale
     var scale = 0f
         set(@FloatRange(from = 0.0, to = 1.0) value) {
@@ -130,19 +128,21 @@ class AdaptiveIconView(
         transformLayer(backgroundPaint, backgroundDx, backgroundDy, backgroundScale)
         transformLayer(foregroundPaint, foregroundDx, foregroundDy, foregroundScale)
 
-        val saveCount = canvas.save()
-        canvas.translate(left, top)
-        if (drawShadow) {
-            canvas.translate(0f, shadowDY)
-            canvas.drawRoundRect(0f, 0f, iconSize.toFloat(), iconSize.toFloat(),
-                    cornerRadius, cornerRadius, shadowPaint)
-            canvas.translate(0f, -shadowDY)
+        canvas.run {
+            val saveCount = save()
+            translate(left, top)
+            if (drawShadow) {
+                translate(0f, shadowDY)
+                drawRoundRect(0f, 0f, iconSize.toFloat(), iconSize.toFloat(),
+                        cornerRadius, cornerRadius, shadowPaint)
+                translate(0f, -shadowDY)
+            }
+            drawRoundRect(0f, 0f, iconSize.toFloat(), iconSize.toFloat(),
+                    cornerRadius, cornerRadius, backgroundPaint)
+            drawRoundRect(0f, 0f, iconSize.toFloat(), iconSize.toFloat(),
+                    cornerRadius, cornerRadius, foregroundPaint)
+            restoreToCount(saveCount)
         }
-        canvas.drawRoundRect(0f, 0f, iconSize.toFloat(), iconSize.toFloat(),
-                cornerRadius, cornerRadius, backgroundPaint)
-        canvas.drawRoundRect(0f, 0f, iconSize.toFloat(), iconSize.toFloat(),
-                cornerRadius, cornerRadius, foregroundPaint)
-        canvas.restoreToCount(saveCount)
     }
 
     private fun rasterize(drawable: Drawable, bitmap: Bitmap, canvas: Canvas) {

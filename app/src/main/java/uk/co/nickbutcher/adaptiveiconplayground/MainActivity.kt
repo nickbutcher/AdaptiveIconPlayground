@@ -37,8 +37,12 @@ import android.transition.Fade
 import android.transition.TransitionManager
 import android.transition.TransitionSet
 import android.util.FloatProperty
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.VelocityTracker
+import android.view.View
 import android.view.View.GONE
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout.HORIZONTAL
@@ -317,6 +321,7 @@ class MainActivity : AppCompatActivity() {
             private val adaptiveIcons: List<AdaptiveIconDrawable>,
             var iconCornerRadius: Float
     ) : RecyclerView.Adapter<IconViewHolder>() {
+
         var velocityX = 0f
         var velocityY = 0f
         var foregroundTranslateFactor = DEF_FOREGROUND_TRANSLATE_FACTOR
@@ -357,6 +362,7 @@ class MainActivity : AppCompatActivity() {
             @ColorInt val status: Int,
             val darkStatusIcons: Boolean,
             @DrawableRes val icon: Int) {
+
         Wallpaper(R.drawable.wallpaper, 0x99000000.toInt(), false, R.drawable.ic_wallpaper),
         Light(R.drawable.wallpaper_light, 0xb3eeeeee.toInt(), true, R.drawable.ic_light),
         Dusk(R.drawable.wallpaper_dusk, 0xb3eeeeee.toInt(), true, R.drawable.ic_dusk),
@@ -369,6 +375,7 @@ class MainActivity : AppCompatActivity() {
             private val spanCount: Int,
             private val iconSize: Int
     ) : RecyclerView.ItemDecoration() {
+
         private val offsets = Rect()
         private var initialized = false
 
@@ -390,10 +397,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun SeekBar.onSeek(progressChanged: (Int) -> Unit) {
+
         setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) =
                     progressChanged(progress)
-
             override fun onStartTrackingTouch(seekBar: SeekBar) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar) = Unit
         })
