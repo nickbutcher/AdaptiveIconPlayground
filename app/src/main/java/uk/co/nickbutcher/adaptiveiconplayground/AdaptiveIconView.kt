@@ -189,6 +189,6 @@ private class FloatRangeDelegate(
         val max: Float = 1f) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>) = value
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Float) {
-        this.value = Math.max(min, Math.min(max, value))
+        this.value = value.coerceIn(min, max)
     }
 }
