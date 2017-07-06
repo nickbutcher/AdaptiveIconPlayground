@@ -14,7 +14,7 @@
   -->
 
 <resources>
-    <color name="primary">#69F0AE</color>
+    <color name="primary">#2196F3</color>
     <color name="accent">@color/primary</color>
     <color name="light_immersive_bars">#4c808080</color>
     <color name="shadow_color">#20000000</color>
