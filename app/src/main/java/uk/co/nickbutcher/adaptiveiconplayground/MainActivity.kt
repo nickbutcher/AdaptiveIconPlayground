@@ -313,7 +313,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun deliverResult(data: List<AdaptiveIconDrawable>) {
-            icons.addAll(data)
+            icons += data
             super.deliverResult(data)
         }
     }
