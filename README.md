@@ -2,13 +2,17 @@
 
 An Android application for experimenting with [adaptive icons](https://developer.android.com/preview/features/adaptive-icons.html).
 
-![demo](screenshots/adaptive-icon-playground-demo.gif)
+![demo](screenshots/adaptive-icon-playground-demo.webp)
 
 This app finds all installed apps sporting an adaptive icon and displays them in a grid. It then allows you to toggle different mask shapes (approximating how the icon might display on different devices) and explore visual effects may be applied. Currently offered:
 - Layer translation parallax based on scroll
 - Layer scale parallax based on touch
 
 A settings sheet allows customization of these effects. **Please note** that these effects are purely illustrative and do not reflect any future feature plans. They are fun though 😁.
+
+This app only runs on API26+ devices.
+
+👉 **[Download APK](https://github.com/nickbutcher/AdaptiveIconPlayground/releases)** 👈
 
 This is not an official Google product.
 
