@@ -14,6 +14,11 @@ This app only runs on API26+ devices.
 
 👉 **[Download APK](https://github.com/nickbutcher/AdaptiveIconPlayground/releases)** 👈
 
+Read more about adaptive icons:
+- [Understanding Android Adaptive Icons](https://medium.com/google-design/understanding-android-adaptive-icons-cee8a9de93e2)
+- [Designing Adaptive Icons](https://medium.com/google-design/designing-adaptive-icons-515af294c783)
+- [Implementing Adaptive Icons](https://medium.com/@crafty/implementing-adaptive-icons-1e4d1795470e)
+
 This is not an official Google product.
 
 ### License
