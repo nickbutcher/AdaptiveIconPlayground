@@ -159,15 +159,16 @@ class AdaptiveIconView(
     }
 
     private fun transformLayer(layer: Paint, dx: Float, dy: Float, layerScale: Float) {
-        val shader = layer.shader as BitmapShader
-        shader.getLocalMatrix(tempMatrix)
-        tempMatrix.setScale(layerScale, layerScale, layerCenter, layerCenter)
-        tempMatrix.postTranslate(dx - viewportOffset, dy - viewportOffset)
-        shader.setLocalMatrix(tempMatrix)
+        with(layer.shader as BitmapShader) {
+            getLocalMatrix(tempMatrix)
+            tempMatrix.setScale(layerScale, layerScale, layerCenter, layerCenter)
+            tempMatrix.postTranslate(dx - viewportOffset, dy - viewportOffset)
+            setLocalMatrix(tempMatrix)
+        }
     }
 
     private fun velocityToDisplacement(velocity: Float): Float {
-        val clampedVelocity = Math.min(Math.max(velocity, -1000f), 1000f)
+        val clampedVelocity = velocity.coerceIn(-1000f, 1000f)
         return iconSize * clampedVelocity / -1000f
     }
 
