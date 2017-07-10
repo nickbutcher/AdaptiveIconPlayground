@@ -31,6 +31,15 @@ import android.util.TypedValue
 import android.view.View
 import kotlin.reflect.KProperty
 
+/**
+ * A custom view for rendering [AdaptiveIconDrawable]s.
+ *
+ * Note that this is a prototype implementation; I do not recommend using any of this code in
+ * production. The technique employed holds [Bitmap]s of both foreground & background layers, then
+ * renders masked versions using [BitmapShader]s. We do not support arbitrary mask paths, just
+ * simple rounded rectangle shapes. This is less flexible and uses more memory but is quick and
+ * allows animation of the corner radius.
+ */
 class AdaptiveIconView(
         context: Context,
         attrs: AttributeSet?
