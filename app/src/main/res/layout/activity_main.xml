@@ -20,14 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="uk.co.nickbutcher.adaptiveiconplayground.MainActivity">
-
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true" />
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/grid"
@@ -41,6 +34,13 @@
         android:scrollbars="vertical|horizontal"
         app:layoutManager="GridLayoutManager"
         app:spanCount="@integer/spans" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/settings_sheet"
