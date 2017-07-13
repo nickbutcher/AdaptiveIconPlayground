@@ -37,29 +37,15 @@ import android.transition.Fade
 import android.transition.TransitionManager
 import android.transition.TransitionSet
 import android.util.FloatProperty
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.VelocityTracker
-import android.view.View
+import android.view.*
 import android.view.View.GONE
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.LinearLayout.HORIZONTAL
 import android.widget.LinearLayout.VERTICAL
 import android.widget.SeekBar
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private val grid by lazy(LazyThreadSafetyMode.NONE) {
-        findViewById<RecyclerView>(R.id.grid)
-    }
-    private val damping by lazy(LazyThreadSafetyMode.NONE) {
-        findViewById<SeekBar>(R.id.damping)
-    }
-    private val stiffness by lazy(LazyThreadSafetyMode.NONE) {
-        findViewById<SeekBar>(R.id.stiffness)
-    }
     private val velocityTracker = VelocityTracker.obtain()
     private val corners: FloatArray by lazy(LazyThreadSafetyMode.NONE) {
         val density = resources.displayMetrics.density
@@ -163,7 +149,7 @@ class MainActivity : AppCompatActivity() {
 
         val fastOutSlowIn = AnimationUtils.loadInterpolator(
                 this, android.R.interpolator.fast_out_slow_in)
-        findViewById<View>(R.id.mask).setOnClickListener {
+        mask.setOnClickListener {
             corner = ++corner % corners.size
             with(ObjectAnimator.ofFloat(
                     this@MainActivity,
@@ -183,6 +169,7 @@ class MainActivity : AppCompatActivity() {
             duration = 200L
             interpolator = fastOutSlowIn
         }
+
         findViewById<View>(R.id.orientation).setOnClickListener { view ->
             orientation = orientation xor 1
             view.animate()
@@ -194,7 +181,7 @@ class MainActivity : AppCompatActivity() {
             (grid.layoutManager as GridLayoutManager).orientation = orientation
         }
 
-        with(findViewById<ImageView>(R.id.background)) {
+        with(background) {
             setOnClickListener {
                 decor = decor.next()
                 grid.setBackgroundResource(decor.background)
@@ -210,16 +197,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<SeekBar>(R.id.foreground_parallax)
+        foreground_parallax
                 .onSeek { progress -> foregroundTranslateFactor = progress / 100f }
-        findViewById<SeekBar>(R.id.background_parallax)
+        background_parallax
                 .onSeek { progress -> backgroundTranslateFactor = progress / 100f }
-        findViewById<SeekBar>(R.id.foreground_scale)
+        foreground_scale
                 .onSeek { progress -> foregroundScaleFactor = progress / 100f }
-        findViewById<SeekBar>(R.id.background_scale)
+        background_scale
                 .onSeek { progress -> backgroundScaleFactor = progress / 100f }
 
-        BottomSheetBehavior.from(findViewById<View>(R.id.settings_sheet)).setBottomSheetCallback(
+        BottomSheetBehavior.from(settings_sheet).setBottomSheetCallback(
                 object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {}
 
@@ -238,7 +225,7 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onLoadFinished(loader: Loader<List<AdaptiveIconDrawable>>,
                                                 data: List<AdaptiveIconDrawable>) {
-                        findViewById<View>(R.id.loading).visibility = GONE
+                        loading.visibility = GONE
                         adapter = IconAdapter(data, corners[0])
                         grid.adapter = adapter
                         grid.setOnTouchListener(gridTouch)
@@ -402,6 +389,7 @@ class MainActivity : AppCompatActivity() {
         setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) =
                     progressChanged(progress)
+
             override fun onStartTrackingTouch(seekBar: SeekBar) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar) = Unit
         })
