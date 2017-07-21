@@ -1,8 +1,14 @@
-# AdaptiveIconPlayground
+# AdaptiveIconPlayground  
+[![License Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=true)](http://www.apache.org/licenses/LICENSE-2.0)
+![minSdkVersion 26](https://img.shields.io/badge/minSdkVersion-26-red.svg?style=true) 
+![compileSdkVersion 26](https://img.shields.io/badge/compileSdkVersion-26-yellow.svg?style=true)
+
 
 An Android application for experimenting with [adaptive icons](https://developer.android.com/preview/features/adaptive-icons.html).
 
 ![demo](screenshots/adaptive-icon-playground-demo.webp)
+
+***Warning: This app only runs on API26+ devices.***
 
 This app finds all installed apps sporting an adaptive icon and displays them in a grid. It then allows you to toggle different mask shapes (approximating how the icon might display on different devices) and explore visual effects may be applied. Currently offered:
 - Layer translation parallax based on scroll
@@ -10,11 +16,10 @@ This app finds all installed apps sporting an adaptive icon and displays them in
 
 A settings sheet allows customization of these effects. **Please note** that these effects are purely illustrative and do not reflect any future feature plans. They are fun though 😁.
 
-This app only runs on API26+ devices.
 
 👉 **[Download APK](https://github.com/nickbutcher/AdaptiveIconPlayground/releases)** 👈
 
-Read more about adaptive icons:
+### Read more about adaptive icons:
 - [Understanding Android Adaptive Icons](https://medium.com/google-design/understanding-android-adaptive-icons-cee8a9de93e2)
 - [Designing Adaptive Icons](https://medium.com/google-design/designing-adaptive-icons-515af294c783)
 - [Implementing Adaptive Icons](https://medium.com/@crafty/implementing-adaptive-icons-1e4d1795470e)
