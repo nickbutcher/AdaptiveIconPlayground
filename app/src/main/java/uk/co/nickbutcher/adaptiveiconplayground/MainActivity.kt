@@ -298,7 +298,9 @@ class MainActivity : AppCompatActivity() {
             val pm = context.packageManager
             val adaptiveIcons = ArrayList<AdaptiveIconDrawable>()
             val launcherIntent = Intent().apply { addCategory(Intent.CATEGORY_LAUNCHER) }
-            pm.getInstalledApplications(0).forEach { appInfo ->
+            val apps = pm.getInstalledApplications(0)
+            apps.sortBy { it.packageName }
+            apps.forEach { appInfo ->
                 launcherIntent.`package` = appInfo.packageName
                 // only show launch-able apps
                 if (pm.queryIntentActivities(launcherIntent, 0).size > 0) {
