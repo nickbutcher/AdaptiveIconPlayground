@@ -298,18 +298,18 @@ class MainActivity : AppCompatActivity() {
             val pm = context.packageManager
             val adaptiveIcons = ArrayList<AdaptiveIconDrawable>()
             val launcherIntent = Intent().apply { addCategory(Intent.CATEGORY_LAUNCHER) }
-            val apps = pm.getInstalledApplications(0)
-            apps.sortBy { it.packageName }
-            apps.forEach { appInfo ->
-                launcherIntent.`package` = appInfo.packageName
-                // only show launch-able apps
-                if (pm.queryIntentActivities(launcherIntent, 0).size > 0) {
-                    val icon = appInfo.loadUnbadgedIcon(pm)
-                    if (icon is AdaptiveIconDrawable) {
-                        adaptiveIcons += icon
+            pm.getInstalledApplications(0)
+                .sortedBy { it.packageName }
+                .forEach { appInfo ->
+                    launcherIntent.`package` = appInfo.packageName
+                    // only show launch-able apps
+                    if (pm.queryIntentActivities(launcherIntent, 0).size > 0) {
+                        val icon = appInfo.loadUnbadgedIcon(pm)
+                        if (icon is AdaptiveIconDrawable) {
+                            adaptiveIcons += icon
+                        }
                     }
                 }
-            }
             adaptiveIcons += context.getDrawable(R.drawable.ic_launcher_alt) as AdaptiveIconDrawable
             return adaptiveIcons
         }
