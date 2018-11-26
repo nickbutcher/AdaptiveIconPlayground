@@ -48,7 +48,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout.HORIZONTAL
 import android.widget.LinearLayout.VERTICAL
 import android.widget.SeekBar
-import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
@@ -305,12 +304,6 @@ class MainActivity : AppCompatActivity() {
                 if (pm.queryIntentActivities(launcherIntent, 0).size > 0) {
                     val icon = appInfo.loadUnbadgedIcon(pm)
                     if (icon is AdaptiveIconDrawable) {
-                        if(icon.foreground == null) {
-                            Log.d("broken foreground: ", appInfo.packageName)
-                        }
-                        if(icon.background == null) {
-                            Log.d("broken background: ", appInfo.packageName)
-                        }
                         adaptiveIcons += icon
                     }
                 }
